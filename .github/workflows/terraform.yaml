@@ -17,7 +17,7 @@ env:
   AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
 
   BUCKET_TF_STATE: "${{ secrets.BUCKET_TF_STATE }}"
-  AWS_REGION: us-east-2
+  AWS_REGION: ap-southeast-1
   EKS_CLUSTER: vprofile-eks
 
 jobs:
@@ -51,12 +51,8 @@ jobs:
 
       - name: Terraform plan
         id: plan
-        run: terraform plan -destroy -no-color -input=false -out planfile
+        run: terraform plan -no-color -input=false -out planfile
         continue-on-error: true
-      
-      - name: Terraform destroy
-        id: destroy
-        run: terraform destroy -auto-approve -input=false -parallelism=1
       
       - name: Terraform plan status
         if: steps.plan.outcome == 'failure'
