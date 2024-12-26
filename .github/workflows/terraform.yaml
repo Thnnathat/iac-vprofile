@@ -56,7 +56,7 @@ jobs:
       
       - name: Terraform destroy
         id: destroy
-        run: terraform apply -auto-approve -input=false -parallelism=1 planfile
+        run: terraform destroy -auto-approve -input=false -parallelism=1
       
       - name: Terraform plan status
         if: steps.plan.outcome == 'failure'
